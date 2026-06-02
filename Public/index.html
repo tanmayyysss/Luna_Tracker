@@ -184,6 +184,39 @@ footer{background:var(--text);color:rgba(255,255,255,0.7);text-align:center;padd
 footer .logo{color:#fff;margin-bottom:.8rem;display:block;}
 footer a{color:rgba(255,255,255,0.5);text-decoration:none;}
 
+/* ── FOOD RECOMMENDATIONS ── */
+#food{background:var(--cream);border-top:1px solid var(--border);}
+.food-wrap{max-width:1100px;margin:0 auto;}
+.food-panel{background:#fff;border-radius:24px;border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 30px rgba(232,88,122,0.07);}
+.food-panel-header{padding:1.8rem 2rem;background:linear-gradient(135deg,var(--rose-light),var(--lilac-light));display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.food-panel-header h3{font-family:'DM Serif Display',serif;font-size:1.4rem;}
+.food-panel-header p{font-size:.88rem;color:var(--text-muted);margin-top:.2rem;}
+.food-symptom-tabs{display:flex;flex-wrap:wrap;gap:.5rem;padding:1.5rem 2rem;border-bottom:1px solid var(--border);}
+.food-tab{padding:.45rem 1.1rem;border-radius:100px;border:1.5px solid var(--border);background:#fff;font-size:.8rem;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit;color:var(--text-muted);}
+.food-tab:hover{border-color:var(--rose);color:var(--rose);}
+.food-tab.active{background:var(--rose);color:#fff;border-color:var(--rose);}
+.food-tab.active-lilac{background:var(--lilac);color:#fff;border-color:var(--lilac);}
+.food-cards-area{padding:1.8rem 2rem;}
+.food-intro{text-align:center;padding:2.5rem 1rem;color:var(--text-muted);}
+.food-intro .big-emoji{font-size:3rem;display:block;margin-bottom:.8rem;}
+.food-section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.8rem;}
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.9rem;margin-bottom:1.8rem;}
+.food-card{background:var(--cream);border:1px solid var(--border);border-radius:16px;padding:1rem .9rem;text-align:center;transition:.3s;position:relative;overflow:hidden;}
+.food-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(232,88,122,0.04));opacity:0;transition:.3s;}
+.food-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(232,88,122,0.12);}
+.food-card:hover::before{opacity:1;}
+.food-emoji{font-size:2rem;display:block;margin-bottom:.5rem;}
+.food-name{font-size:.85rem;font-weight:600;color:var(--text);}
+.food-reason{font-size:.72rem;color:var(--text-muted);margin-top:.25rem;line-height:1.4;}
+.food-card.avoid{background:#fff5f5;border-color:rgba(229,57,53,0.2);}
+.food-card.avoid .food-name{color:#c62828;}
+.avoid-label{display:inline-block;font-size:.65rem;font-weight:700;background:#ffebee;color:#c62828;padding:.15rem .5rem;border-radius:100px;margin-top:.3rem;letter-spacing:.05em;}
+.food-tip-box{background:linear-gradient(135deg,var(--rose-light),var(--lilac-light));border-radius:14px;padding:1.1rem 1.3rem;font-size:.85rem;line-height:1.65;color:var(--text);margin-top:.5rem;border:1px solid rgba(232,88,122,0.15);}
+.food-tip-box strong{color:var(--rose-dark);}
+/* Row food badge in history table */
+.food-peek{display:inline-flex;align-items:center;gap:.3rem;background:linear-gradient(135deg,#fff9f0,#fce4ec);border:1px solid rgba(232,88,122,0.2);border-radius:8px;padding:.25rem .6rem;font-size:.72rem;cursor:pointer;transition:.2s;white-space:nowrap;}
+.food-peek:hover{background:var(--rose-light);border-color:var(--rose);}
+
 /* ── REVEAL ANIMATIONS ── */
 .reveal{opacity:0;transform:translateY(40px);transition:.8s ease;}
 .reveal.visible{opacity:1;transform:none;}
@@ -208,6 +241,7 @@ footer a{color:rgba(255,255,255,0.5);text-decoration:none;}
     <li><a href="#tracker">Track</a></li>
     <li><a href="#history">History</a></li>
     <li><a href="#insights">Insights</a></li>
+    <li><a href="#food">🍓 Food</a></li>
 
   </ul>
   <button class="nav-cta" onclick="scrollToTracker()">Start Tracking</button>
@@ -350,6 +384,7 @@ footer a{color:rgba(255,255,255,0.5);text-decoration:none;}
             <th>Cycle Length</th>
             <th>Symptoms</th>
             <th>Mood</th>
+            <th>Food Tips</th>
             <th>Notes</th>
             <th></th>
           </tr>
@@ -387,6 +422,43 @@ footer a{color:rgba(255,255,255,0.5);text-decoration:none;}
         <h3>Top Symptom</h3>
         <p>Your most frequently logged symptom across all cycles:</p>
         <div class="insight-val" id="top-symptom">–</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOD RECOMMENDATIONS -->
+<section id="food">
+  <div class="food-wrap">
+    <div class="tracker-header reveal" style="text-align:center;margin-bottom:2.5rem;">
+      <div class="section-tag">Nourish</div>
+      <h2 class="section-title">Food Recommendations</h2>
+      <p class="section-sub" style="margin:0 auto;">Select a symptom below to get personalised food tips — what to eat and what to skip.</p>
+    </div>
+    <div class="food-panel reveal">
+      <div class="food-panel-header">
+        <span style="font-size:2rem;">🍽️</span>
+        <div>
+          <h3>What should I eat today?</h3>
+          <p>Tap a symptom to see foods that help — and ones to avoid.</p>
+        </div>
+      </div>
+      <div class="food-symptom-tabs" id="food-tabs">
+        <button class="food-tab" onclick="showFood('Cramps',this)">🤕 Cramps</button>
+        <button class="food-tab" onclick="showFood('Headache',this)">🤯 Headache</button>
+        <button class="food-tab" onclick="showFood('Bloating',this)">💨 Bloating</button>
+        <button class="food-tab" onclick="showFood('Fatigue',this)">😴 Fatigue</button>
+        <button class="food-tab" onclick="showFood('Backache',this)">🦴 Backache</button>
+        <button class="food-tab" onclick="showFood('Nausea',this)">🤢 Nausea</button>
+        <button class="food-tab" onclick="showFood('Spotting',this)">🩸 Spotting</button>
+        <button class="food-tab" onclick="showFood('Mood swings',this)">😤 Mood swings</button>
+        <button class="food-tab" onclick="showFood('Tender breasts',this)">💗 Tender breasts</button>
+      </div>
+      <div class="food-cards-area" id="food-cards-area">
+        <div class="food-intro">
+          <span class="big-emoji">👆</span>
+          <p>Pick a symptom above to get your personalised food recommendations.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -596,23 +668,36 @@ function logSymptoms() {
   document.querySelectorAll('.symptom-chip').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('symptom-note').value = ''; selectedMood = '';
-  showToast('🌸 Symptoms logged!');
+  showToast('🌸 Symptoms logged! Scroll down for food tips 🍽️');
+  // Auto-highlight first symptom in food section
+  if (activeSymptoms.length) {
+    const tab = [...document.querySelectorAll('.food-tab')].find(t => t.textContent.includes(activeSymptoms[0]));
+    if (tab) showFood(activeSymptoms[0], tab);
+  }
 }
 
 // ─── HISTORY TABLE ────────────────────────────────────────────
 function renderHistory() {
   const tbody = document.getElementById('history-body');
-  if (!cycles.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem;">No entries yet. Start by logging your first period! 🌸</td></tr>'; return; }
-  tbody.innerHTML = cycles.map((c,i) => `
+  if (!cycles.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:2rem;">No entries yet. Start by logging your first period! 🌸</td></tr>'; return; }
+  tbody.innerHTML = cycles.map((c,i) => {
+    const symptomList = c.symptoms ? c.symptoms.split(',').map(s=>s.trim()).filter(Boolean) : [];
+    const topFood = symptomList.length ? getFoodPreview(symptomList[0]) : null;
+    const foodCell = topFood
+      ? `<td><span class="food-peek" onclick="showFoodFromHistory('${symptomList[0]}')" title="See food tips">🍽️ ${topFood}</span></td>`
+      : `<td style="color:var(--text-muted);font-size:.82rem;">–</td>`;
+    return `
     <tr>
       <td><strong>${formatDate(c.period_start)}</strong></td>
       <td>${c.period_duration} days</td>
       <td>${c.cycle_length} days</td>
-      <td>${c.symptoms ? c.symptoms.split(',').slice(0,2).map(s=>`<span class="badge-period">${s.trim()}</span>`).join(' ') : '–'}</td>
+      <td>${symptomList.slice(0,2).map(s=>`<span class="badge-period">${s}</span>`).join(' ') || '–'}</td>
       <td>${c.mood || '–'}</td>
+      ${foodCell}
       <td style="color:var(--text-muted);font-size:.82rem;">${c.notes || '–'}</td>
       <td><button class="delete-btn" onclick="deleteCycle(${i})" title="Delete">🗑</button></td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
 }
 
 function deleteCycle(i) {
@@ -664,7 +749,247 @@ function updateOverview() {
   document.getElementById('period-duration').textContent = last.period_duration;
 }
 
-// ─── PERSIST ─────────────────────────────────────────────────
+// ─── FOOD RECOMMENDATION ENGINE ──────────────────────────────
+const FOOD_DB = {
+  'Cramps': {
+    color: '#e8587a',
+    tip: 'Magnesium and omega-3s relax uterine muscles. Anti-inflammatory foods reduce prostaglandins that cause cramping.',
+    eat: [
+      {e:'🍫',name:'Dark Chocolate',reason:'High magnesium, relaxes muscles'},
+      {e:'🐟',name:'Salmon',reason:'Omega-3s reduce inflammation'},
+      {e:'🍌',name:'Banana',reason:'Potassium eases muscle cramps'},
+      {e:'🥦',name:'Broccoli',reason:'Calcium & magnesium combo'},
+      {e:'🫚',name:'Flaxseeds',reason:'Omega-3 powerhouse'},
+      {e:'🍵',name:'Chamomile Tea',reason:'Antispasmodic, pain relief'},
+      {e:'🧄',name:'Ginger',reason:'Natural anti-inflammatory'},
+      {e:'🥬',name:'Spinach',reason:'Iron & magnesium rich'},
+    ],
+    avoid: [
+      {e:'☕',name:'Coffee',reason:'Constricts blood vessels, worsens cramps'},
+      {e:'🍺',name:'Alcohol',reason:'Increases prostaglandins'},
+      {e:'🧂',name:'Salty Snacks',reason:'Causes water retention & bloating'},
+      {e:'🍟',name:'Fried Foods',reason:'Increase inflammation'},
+    ]
+  },
+  'Headache': {
+    color: '#7b5ea7',
+    tip: 'Hormonal headaches are often triggered by dehydration and low magnesium. Stay hydrated and eat regularly to keep blood sugar stable.',
+    eat: [
+      {e:'💧',name:'Water',reason:'Dehydration is #1 headache trigger'},
+      {e:'🥜',name:'Almonds',reason:'Magnesium helps prevent migraines'},
+      {e:'🫐',name:'Blueberries',reason:'Antioxidants reduce inflammation'},
+      {e:'🥑',name:'Avocado',reason:'Riboflavin (B2) prevents migraines'},
+      {e:'🍠',name:'Sweet Potato',reason:'Stable blood sugar = fewer headaches'},
+      {e:'🫚',name:'Olive Oil',reason:'Oleocanthal acts like ibuprofen'},
+      {e:'🍵',name:'Peppermint Tea',reason:'Natural tension relief'},
+      {e:'🌿',name:'Basil',reason:'Muscle relaxant properties'},
+    ],
+    avoid: [
+      {e:'🍷',name:'Red Wine',reason:'Tyramine & sulfites trigger migraines'},
+      {e:'🧀',name:'Aged Cheese',reason:'High tyramine content'},
+      {e:'☕',name:'Excess Caffeine',reason:'Withdrawal causes rebound headaches'},
+      {e:'🍫',name:'Milk Chocolate',reason:'Tyramine + sugar spike'},
+    ]
+  },
+  'Bloating': {
+    color: '#4caf50',
+    tip: 'Progesterone slows digestion before your period. Avoid gas-producing foods and eat smaller, more frequent meals.',
+    eat: [
+      {e:'🫚',name:'Peppermint Tea',reason:'Relaxes intestinal muscles'},
+      {e:'🍋',name:'Lemon Water',reason:'Stimulates digestive enzymes'},
+      {e:'🫚',name:'Fennel Seeds',reason:'Classic bloating remedy'},
+      {e:'🍍',name:'Pineapple',reason:'Bromelain aids digestion'},
+      {e:'🥒',name:'Cucumber',reason:'High water content, reduces puffiness'},
+      {e:'🫐',name:'Ginger',reason:'Speeds up gastric emptying'},
+      {e:'🥦',name:'Asparagus',reason:'Natural diuretic'},
+      {e:'🍌',name:'Banana',reason:'Reduces water retention'},
+    ],
+    avoid: [
+      {e:'🫘',name:'Beans & Lentils',reason:'High FODMAP, gas-producing'},
+      {e:'🥦',name:'Raw Broccoli',reason:'Causes gas when uncooked'},
+      {e:'🥤',name:'Fizzy Drinks',reason:'Adds gas to digestive tract'},
+      {e:'🧅',name:'Onions & Garlic',reason:'High fructans = bloating'},
+    ]
+  },
+  'Fatigue': {
+    color: '#ff9800',
+    tip: 'Period fatigue is caused by iron loss and hormonal shifts. Iron-rich foods with Vitamin C boost absorption and restore energy.',
+    eat: [
+      {e:'🥩',name:'Red Meat',reason:'Heme iron — most absorbable form'},
+      {e:'🥬',name:'Spinach',reason:'Non-heme iron + folate'},
+      {e:'🍊',name:'Oranges',reason:'Vitamin C boosts iron absorption'},
+      {e:'🥚',name:'Eggs',reason:'B12 and protein for sustained energy'},
+      {e:'🫘',name:'Lentils',reason:'Iron, protein, and complex carbs'},
+      {e:'🌰',name:'Pumpkin Seeds',reason:'Magnesium for energy production'},
+      {e:'🍫',name:'Dark Chocolate',reason:'Iron + mood boost'},
+      {e:'🍠',name:'Oats',reason:'Slow-release energy'},
+    ],
+    avoid: [
+      {e:'☕',name:'Coffee (with meals)',reason:'Inhibits iron absorption by 60%'},
+      {e:'🍬',name:'Sugary Foods',reason:'Energy spike followed by crash'},
+      {e:'🍺',name:'Alcohol',reason:'Disrupts sleep quality, worsens fatigue'},
+      {e:'🍞',name:'White Bread',reason:'Rapid blood sugar drop = energy dip'},
+    ]
+  },
+  'Backache': {
+    color: '#00bcd4',
+    tip: 'Lower back pain during periods is caused by uterine contractions radiating outward. Anti-inflammatory and magnesium-rich foods help relax muscles.',
+    eat: [
+      {e:'🐟',name:'Tuna / Salmon',reason:'Omega-3s reduce nerve inflammation'},
+      {e:'🫐',name:'Berries',reason:'Antioxidants fight inflammation'},
+      {e:'🥦',name:'Broccoli',reason:'Calcium supports muscle function'},
+      {e:'🥜',name:'Walnuts',reason:'Anti-inflammatory omega-3s'},
+      {e:'🍵',name:'Green Tea',reason:'EGCG reduces inflammation'},
+      {e:'🌿',name:'Turmeric Milk',reason:'Curcumin is a powerful anti-inflammatory'},
+      {e:'🥑',name:'Avocado',reason:'Healthy fats, magnesium, potassium'},
+      {e:'🧄',name:'Garlic',reason:'Allicin reduces muscle soreness'},
+    ],
+    avoid: [
+      {e:'🍟',name:'Fast Food',reason:'Trans fats worsen inflammation'},
+      {e:'🧂',name:'Excess Salt',reason:'Fluid retention strains muscles'},
+      {e:'🍷',name:'Alcohol',reason:'Dehydrates muscles, worsens pain'},
+      {e:'🥤',name:'Sugary Drinks',reason:'Spike inflammation markers'},
+    ]
+  },
+  'Nausea': {
+    color: '#8bc34a',
+    tip: 'Prostaglandins that cause contractions can also upset your stomach. Small, bland, frequent meals are your best friend.',
+    eat: [
+      {e:'🫚',name:'Ginger Tea',reason:'#1 evidence-based nausea remedy'},
+      {e:'🍪',name:'Plain Crackers',reason:'Settle stomach on empty'},
+      {e:'🍌',name:'Banana',reason:'BRAT diet staple, easy on stomach'},
+      {e:'🍚',name:'Plain Rice',reason:'Bland, binding, gentle'},
+      {e:'🍋',name:'Lemon Water',reason:'Smell alone reduces nausea'},
+      {e:'🫚',name:'Peppermint',reason:'Relaxes stomach muscles'},
+      {e:'🥣',name:'Plain Oatmeal',reason:'Absorbs stomach acid'},
+      {e:'🧊',name:'Ice Chips',reason:'Cold reduces nausea sensation'},
+    ],
+    avoid: [
+      {e:'🌶️',name:'Spicy Food',reason:'Irritates already-sensitive stomach'},
+      {e:'🍟',name:'Greasy Food',reason:'Slows digestion, worsens nausea'},
+      {e:'☕',name:'Coffee',reason:'Acidic, irritates stomach lining'},
+      {e:'🥛',name:'Full-Fat Dairy',reason:'Hard to digest when nauseous'},
+    ]
+  },
+  'Spotting': {
+    color: '#f44336',
+    tip: 'Spotting can indicate iron deficiency or hormonal imbalance. Focus on foods that support hormonal balance and blood building.',
+    eat: [
+      {e:'🥩',name:'Lean Red Meat',reason:'Rebuilds iron lost through spotting'},
+      {e:'🥬',name:'Dark Leafy Greens',reason:'Folate + iron combination'},
+      {e:'🎃',name:'Pumpkin',reason:'Vitamin A for hormone regulation'},
+      {e:'🫘',name:'Chickpeas',reason:'Plant-based iron + B6'},
+      {e:'🍊',name:'Citrus Fruits',reason:'Vitamin C enhances iron absorption'},
+      {e:'🌿',name:'Raspberry Leaf Tea',reason:'Tones uterine lining'},
+      {e:'🥚',name:'Eggs',reason:'B12 and choline for hormonal balance'},
+      {e:'🥜',name:'Sunflower Seeds',reason:'Vitamin E stabilises hormones'},
+    ],
+    avoid: [
+      {e:'🍺',name:'Alcohol',reason:'Disrupts oestrogen metabolism'},
+      {e:'☕',name:'Caffeine',reason:'Can worsen hormonal fluctuations'},
+      {e:'🍬',name:'Refined Sugar',reason:'Spikes insulin, disrupts hormones'},
+      {e:'🥫',name:'Processed Foods',reason:'Xenoestrogens affect hormone levels'},
+    ]
+  },
+  'Mood swings': {
+    color: '#9c6fc4',
+    tip: 'Serotonin drops before your period. Foods that boost serotonin and stabilise blood sugar help balance your mood.',
+    eat: [
+      {e:'🍫',name:'Dark Chocolate',reason:'Boosts serotonin + endorphins'},
+      {e:'🐟',name:'Salmon',reason:'Omega-3s reduce anxiety & depression'},
+      {e:'🥚',name:'Eggs',reason:'Tryptophan → serotonin precursor'},
+      {e:'🫐',name:'Blueberries',reason:'Antioxidants protect brain cells'},
+      {e:'🥜',name:'Walnuts',reason:'Omega-3s for mood regulation'},
+      {e:'🌿',name:'Chamomile Tea',reason:'Mild anxiolytic effect'},
+      {e:'🍌',name:'Banana',reason:'B6 boosts serotonin production'},
+      {e:'🥑',name:'Avocado',reason:'Folate & healthy fats for brain'},
+    ],
+    avoid: [
+      {e:'🍬',name:'Sugary Foods',reason:'Blood sugar crash → mood crash'},
+      {e:'🍺',name:'Alcohol',reason:'Depressant, worsens low mood'},
+      {e:'☕',name:'Excess Caffeine',reason:'Heightens anxiety & irritability'},
+      {e:'🥤',name:'Energy Drinks',reason:'Crash worsens mood swings'},
+    ]
+  },
+  'Tender breasts': {
+    color: '#e91e63',
+    tip: 'Breast tenderness is caused by oestrogen and progesterone fluctuations. Reducing salt, caffeine and saturated fat helps significantly.',
+    eat: [
+      {e:'🫚',name:'Evening Primrose Oil',reason:'GLA reduces breast pain'},
+      {e:'🌱',name:'Flaxseeds',reason:'Lignans help balance oestrogen'},
+      {e:'🥦',name:'Cruciferous Veggies',reason:'DIM supports oestrogen metabolism'},
+      {e:'🥜',name:'Almonds',reason:'Vitamin E reduces breast pain'},
+      {e:'🍊',name:'Vitamin C Foods',reason:'Supports healthy progesterone levels'},
+      {e:'🫐',name:'Berries',reason:'Antioxidants reduce inflammation'},
+      {e:'🐟',name:'Fatty Fish',reason:'Omega-3s reduce swelling'},
+      {e:'🌿',name:'Dandelion Tea',reason:'Natural diuretic, reduces swelling'},
+    ],
+    avoid: [
+      {e:'🧂',name:'Salty Foods',reason:'Water retention worsens swelling'},
+      {e:'☕',name:'Caffeine',reason:'Linked to increased breast tenderness'},
+      {e:'🧈',name:'Saturated Fats',reason:'Increase oestrogen levels'},
+      {e:'🍺',name:'Alcohol',reason:'Elevates oestrogen, worsens pain'},
+    ]
+  }
+};
+
+function getFoodPreview(symptom) {
+  const s = symptom.trim();
+  const db = FOOD_DB[s];
+  if (!db) return null;
+  return db.eat[0].name;
+}
+
+function showFoodFromHistory(symptom) {
+  document.getElementById('food').scrollIntoView({behavior:'smooth'});
+  setTimeout(() => {
+    const tab = [...document.querySelectorAll('.food-tab')].find(t => t.textContent.includes(symptom));
+    if (tab) showFood(symptom, tab);
+  }, 600);
+}
+
+function showFood(symptom, btn) {
+  // Update tabs
+  document.querySelectorAll('.food-tab').forEach(t => { t.classList.remove('active','active-lilac'); });
+  btn.classList.add('active');
+
+  const data = FOOD_DB[symptom];
+  if (!data) return;
+
+  const area = document.getElementById('food-cards-area');
+  area.style.opacity = '0';
+  area.style.transform = 'translateY(10px)';
+
+  setTimeout(() => {
+    area.innerHTML = `
+      <div class="food-section-label">✅ Eat These — Helps with ${symptom}</div>
+      <div class="food-grid">
+        ${data.eat.map(f => `
+          <div class="food-card">
+            <span class="food-emoji">${f.e}</span>
+            <div class="food-name">${f.name}</div>
+            <div class="food-reason">${f.reason}</div>
+          </div>`).join('')}
+      </div>
+      <div class="food-section-label" style="margin-top:.5rem;">❌ Avoid These — Worsens ${symptom}</div>
+      <div class="food-grid">
+        ${data.avoid.map(f => `
+          <div class="food-card avoid">
+            <span class="food-emoji">${f.e}</span>
+            <div class="food-name">${f.name}</div>
+            <div class="food-reason">${f.reason}</div>
+            <span class="avoid-label">AVOID</span>
+          </div>`).join('')}
+      </div>
+      <div class="food-tip-box">💡 <strong>Why it matters:</strong> ${data.tip}</div>
+    `;
+    area.style.transition = 'all .4s ease';
+    area.style.opacity = '1';
+    area.style.transform = 'translateY(0)';
+  }, 180);
+}
+
+
 function saveCycles() { localStorage.setItem('luna_cycles', JSON.stringify(cycles)); }
 
 // ─── TOAST ───────────────────────────────────────────────────
